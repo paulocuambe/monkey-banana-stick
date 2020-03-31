@@ -1,22 +1,55 @@
+%Monkey_Banana_Sticky problem
+% H - me dont know if the monkey has or not the banana on this state
 % Brief explanation of the 'methods' on this file
 % state(MonkeyHorizontalPosition, MonkeyVerticalPosition, BoxPosition, MonkeyHasOrNoBananas)
 % P, P1, P2 - undefined positions the monkey/objects may be
-% H - me dont know if the monkey has or not the banana on this state
 
-move(state(middle, onbox, middle, hasnot),
-    grasp,
-    state(middle, onbox, middle, has)).
-move(state(P, onfloor, P, H),
+
+/*
+domain
+	name=symbol
+predicates
+	state(name, name, name, name, name)
+	action(name, name, name)
+	canshake(name) 
+*/
+
+
+%Facts
+do(
+	state(middle, onchair, middle, sticky, hasnot),
+	grasp,
+	state(middle, onchair, middle, nosticky, has)
+).
+
+do(
+	state(P, onfloor, P,sticky, H),
     climb,
-    state(P, onbox, P, H)).
-move(state(P1, onfloor, P1, H),
+    state(P, onbox, P, sticky, H)
+ ).
+
+do(
+	state(P, onfloor, P,nosticky, H),
+    takeSticky,
+    state(P, onbox, P, sticky, H)
+).
+do(
+	state(P1, onfloor, P1,nosticky, H),
     push(P1, P2),
-    state(P2, onfloor, P2, H)).
-move(state(P1, onfloor, B, H),
+    state(P2, onfloor, P2,nosticky, H)
+).
+do(
+	state(P1, onfloor, B,nosticky, H),
     walk(P1, P2),
-    state(P2, onfloor, B, H)).
-canget(state(_, _, _, has)).
+    state(P2, onfloor, B, H)
+).
+canget(
+	state(_, _, _, sticky, has)
+).
+
+%Rules
 canget(State1):-
-    move(State1, _, State2),
+    do(State1, _, State2),
     canget(State2).
 
+%queries
