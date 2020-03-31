@@ -1,4 +1,9 @@
 %Monkey_Banana_Sticky problem
+% H - me dont know if the monkey has or not the banana on this state
+% Brief explanation of the 'methods' on this file
+% state(MonkeyHorizontalPosition, MonkeyVerticalPosition, BoxPosition, MonkeyHasOrNoBananas)
+% P, P1, P2 - undefined positions the monkey/objects may be
+
 
 /*
 domain
@@ -48,6 +53,3 @@ canget(State1):-
     canget(State2).
 
 %queries
-
-
-
